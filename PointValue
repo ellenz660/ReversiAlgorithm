@@ -1,5 +1,6 @@
 public ArrayList<int[]> pointvalue(int[][] board) { //returns best move for a given board of ints. For example,it might return 
 		//point values for each region
+    	//CHANGEABLE, MAYBE TEST IT OUT
 		final int R5= 10; 
 		final int R3= 5;
 		final int R1= 0; 
@@ -40,24 +41,20 @@ public ArrayList<int[]> pointvalue(int[][] board) { //returns best move for a gi
 			
 			if (index == 0 && pointvalue>bestvalue) {
 				bestvalue = pointvalue;
-				best[0][0]=x;
-				best[0][1]=y;
+				best.set(index , new int[]{x,y});
 				index++;
 			}
 			else if (index == 1) {
 				if (pointvalue>bestvalue) {
 					secondvalue = bestvalue;
 					bestvalue = pointvalue;
-					best[1][0] = best[0][0];
-					best[1][1] = best[0][1];
-					best[0][0] = x;
-					best[0][1] = y;
+					best.set(1, new int[] {best.get(0)[0], best.get(0)[1]});
+					best.set(0 , new int[]{x,y});
 					index++;
 				}
 				else {
 					secondvalue = pointvalue;
-					best[1][0] = x;
-					best[1][1] = y;
+					best.set(1 , new int[]{x,y});
 					index++;
 				}
 			}
@@ -66,36 +63,26 @@ public ArrayList<int[]> pointvalue(int[][] board) { //returns best move for a gi
 					thirdvalue = secondvalue;
 					secondvalue = bestvalue;
 					bestvalue = pointvalue;
-					best[2][0] = best[1][0];
-					best[2][1] = best[1][1];
-					best[1][0] = best[0][0];
-					best[1][1] = best[0][1];
-					best[0][0] = x;
-					best[0][1] = y;
+					best.set(2, new int[] {best.get(1)[0], best.get(1)[1]});
+					best.set(1, new int[] {best.get(0)[0], best.get(0)[1]});
+					best.set(0 , new int[]{x,y});
 					index++;
 				}
 				else if (pointvalue>secondvalue) {
 					thirdvalue = secondvalue;
 					secondvalue = pointvalue;
-					best[2][0] = best[1][0];
-					best[2][1] = best[1][1];
-					best[1][0] = x;
-					best[1][1] = y;
+					best.set(2, new int[] {best.get(1)[0], best.get(1)[1]});
+					best.set(1, new int[] {x,y});
 					index++;
 				}
 				else {
 					if (pointvalue > thirdvalue) {
 						thirdvalue = pointvalue;
-						best[2][0] = x;
-						best[2][1] = y;
+						best.set(2, new int[] {x,y});
 						index++;
 					}
 				}
 			}
 		}
-		return best;		
-	}
-}
-
-
-	
+		return best;	
+    }
